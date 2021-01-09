@@ -20,8 +20,9 @@ class BankProvider {
 
   Future<List> loadBankListFromApi() async {
     print('----------getBankList@BankProvider');
+    var res;
     try {
-      return _apiProvider.getBanks().then((it) {
+      res = _apiProvider.getBanks().then((it) {
         return it.banks;
       }).catchError((Object object) {
         developer.log(object.toString());
@@ -29,6 +30,7 @@ class BankProvider {
     } catch (e) {
       developer.log("Error");
     }
+    return res;
   }
 
   Future<List> loadBankListFromDB() async {

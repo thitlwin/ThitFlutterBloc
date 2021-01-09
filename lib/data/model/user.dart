@@ -1,30 +1,31 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part "bank.g.dart";
+part 'user.g.dart';
 
 @JsonSerializable()
-class Bank extends Equatable {
+class User extends Equatable {
   final int id;
   final String name;
+  final String email;
 
-  Bank({this.id, this.name});
+  User({this.id, this.name, this.email});
 
   @override
-  List<Object> get props => [this.id, this.name];
+  List<Object> get props => [this.id, this.name, this.email];
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
   /// The constructor is named after the source class, in this case, User.
-  factory Bank.fromJson(Map<String, dynamic> json) => _$BankFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
-  Map<String, dynamic> toJson() => _$BankToJson(this);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
   String toString() {
-    return "{'id': ${this.id}, 'name': ${this.name}}";
+    return "{'id': ${this.id}, 'name': ${this.name}, 'email': ${this.email}}";
   }
 }

@@ -18,5 +18,6 @@ class AppConstant {
 }
 
 class DatabaseConstant {
+  static const databaseVersion = 2;
   static const databaseName = "thit_bloc_db";
 }

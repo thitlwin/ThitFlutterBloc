@@ -24,16 +24,20 @@ class DatabaseProvider {
     String path = join(documentsDirectory.path, DatabaseConstant.databaseName);
 
     var database = await openDatabase(path,
-        version: 1, onCreate: initDB, onUpgrade: onUpgrade);
+        version: DatabaseConstant.databaseVersion,
+        onCreate: initDB,
+        onUpgrade: onUpgrade);
     return database;
   }
 
   Future onUpgrade(Database database, int oldVersion, int newVersion) async {
+    await database.execute("DROP TABLE IF EXISTS ${TableProvider.userTable}");
     await database.execute("DROP TABLE IF EXISTS ${TableProvider.bankTable}");
     await initDB(database, newVersion);
   }
 
   Future initDB(Database database, int version) async {
+    await database.execute(TableProvider.createUserTable);
     await database.execute(TableProvider.createBankTable);
   }
 }

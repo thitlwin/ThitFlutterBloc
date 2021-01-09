@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:thit_flutter_bloc/data/model/user.dart';
 import 'package:thit_flutter_bloc/provider/user_provider.dart';
 
 class UserRepository {
@@ -10,7 +11,6 @@ class UserRepository {
   }) async {
     await Future.delayed(Duration(seconds: 1));
     // TODO - to write code for getting auth token from server here
-    await _userProvider.saveAuthUserToPref(email, password);
     return 'token';
   }
 
@@ -32,9 +32,11 @@ class UserRepository {
     return token != null ? true : false;
   }
 
-  Future<void> persistAuthUser(String email, String password) async {
-    /// write to keystore/keychain
-    await _userProvider.saveAuthUserToPref(email, password);
-    return;
+  Future saveUser(User user) async {
+    return _userProvider.saveUserToDB(user);
+  }
+
+  Future loadUser() async {
+    return _userProvider.getAllUser();
   }
 }

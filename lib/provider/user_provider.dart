@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thit_flutter_bloc/data/db/database_provider.dart';
+import 'package:thit_flutter_bloc/data/db/table_provider.dart';
+import 'package:thit_flutter_bloc/data/model/user.dart';
 import 'package:thit_flutter_bloc/utils/application_keys.dart';
 
 class UserProvider {
@@ -54,15 +56,23 @@ class UserProvider {
     return authUserEmail;
   }
 
-  Future<void> saveAuthUserToPref(String email, String password) async {
+  Future saveUserToDB(User user) async {
     try {
-      // save email to pref
-      final SharedPreferences prefs = await _prefs;
-      prefs
-          .setString(AppLicationKeys.authUserEmail, email)
-          .then((value) => print('save saveAuthUserEmail = ${value}'));
+      final db = await dbProvider.database;
+      var res = db.insert(TableProvider.userTable, user.toJson());
+      return res;
     } catch (e, stackTrace) {
       developer.log("Saved Error", error: e, stackTrace: stackTrace);
+    }
+  }
+
+  Future getAllUser() async {
+    try {
+      final db = await dbProvider.database;
+      var res = await db.query(TableProvider.userTable);
+      return res.map((it) => User.fromJson(it)).toList();
+    } catch (e, stackTrace) {
+      developer.log("getAllUser Error", error: e, stackTrace: stackTrace);
     }
   }
 }
