@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
+import 'package:thit_flutter_bloc/ui/note/note_create/index.dart';
+import 'package:thit_flutter_bloc/ui/note/note_list/index.dart';
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
 
 import 'ui/user/user_list/index.dart';
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
+        NoteListPage.routeName: (context) => NoteListPage(),
+        NoteCreatePage.routeName: (context) => NoteCreatePage(),
       },
     );
   }
@@ -75,7 +79,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Open Bank (Api sample)'),
               color: Colors.amber,
-            )
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, NoteListPage.routeName );
+              },
+              child: Text('Note'),
+              color: Colors.amberAccent,
+              )
           ],
         ),
       ),
