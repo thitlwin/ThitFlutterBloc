@@ -23,9 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cloud_firestore: ^0.16.0
   cupertino_icons: ^1.0.1
   dio: ^3.0.10
   equatable: ^1.2.5
+  firebase_core: ^0.7.0
   flutter_bloc: ^6.1.1
   intl: ^0.16.1
   path: ^1.7.0
