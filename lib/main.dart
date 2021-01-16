@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
+import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
+import 'package:thit_flutter_bloc/utils/light_theme.dart';
 
 import 'ui/user/user_list/index.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -14,11 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter CURD Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: myTheme,
       home: MyHomePage(title: 'Home Page'),
       routes: {
+        AudioListPage.routeName: (context) => AudioListPage(),
+        AudioCreatePage.routeName: (context) => AudioCreatePage(),
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
@@ -61,6 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AudioListPage.routeName);
+              },
+              child: Text('Audio List'),
+              color: Colors.blueGrey,
             ),
             RaisedButton(
               onPressed: () {
