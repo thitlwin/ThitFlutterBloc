@@ -6,18 +6,18 @@ class GenreRepository {
   final GenreProvider _genreProvider = GenreProvider();
 
   Future saveGenre(Genre genre) async {
-    return _genreProvider.saveGenreToDB(genre);
+    return _genreProvider.saveGenre(genre);
   }
 
   Future updateGenre(Genre genre) async {
-    return _genreProvider.updateGenreToDB(genre);
+    return _genreProvider.updateGenre(genre);
   }
 
   Future deleteGenre(Genre genre) async {
-    return _genreProvider.deleteGenreToDB(genre);
+    return _genreProvider.deleteGenre(genre);
   }
 
   Future loadGenre() async {
-    return _genreProvider.getAllGenre();
+    return _genreProvider.loadGenre();
   }
 }

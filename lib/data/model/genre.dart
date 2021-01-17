@@ -30,13 +30,13 @@ class Genre extends Equatable {
 
   static Genre fromSnapshot(DocumentSnapshot snap) {
     return Genre(
-      genreName: snap.data['genreName'],
+      genreName: snap.data()['genreName'],
     );
   }
 
   Map<String, Object> toDocument() {
     return {
-      "genre": genre,
+      'genreName': genreName,
     };
   }
 }
