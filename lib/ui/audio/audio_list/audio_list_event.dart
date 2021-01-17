@@ -44,9 +44,10 @@ class LoadAudioListEvent extends AudioListEvent {
     try {
       yield UnAudioListState();
       _todosSubscription?.cancel();
-      _audioRepository.getAudioListStream().listen((event) {
-        bloc.add(InAudioListEvent(event));
+      _audioRepository.getAudioListStream().listen((audioList) {
+        bloc.add(InAudioListEvent(audioList));
       });
+      // call without using stream
       // var res = await _audioRepository.getAudioList();
       // if (res != null) {
       //   print(res.length);
