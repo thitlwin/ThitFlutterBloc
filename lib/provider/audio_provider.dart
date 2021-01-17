@@ -4,7 +4,6 @@ import 'package:thit_flutter_bloc/data/model/audio.dart';
 class AudioProvider {
   final todoCollection = FirebaseFirestore.instance.collection('audios');
 
-  @override
   Future<void> addNewAudio(Audio audio) {
     return todoCollection.add(audio.toDocument());
   }
@@ -17,6 +16,12 @@ class AudioProvider {
   Stream<List<Audio>> audios() {
     return todoCollection.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) => Audio.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Future<List<Audio>> audioList() {
+    return todoCollection.get().then((value) {
+      return value.docs.map((doc) => Audio.fromSnapshot(doc)).toList();
     });
   }
 
