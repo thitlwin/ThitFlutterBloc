@@ -33,13 +33,13 @@ class DatabaseProvider {
   Future onUpgrade(Database database, int oldVersion, int newVersion) async {
     await database.execute("DROP TABLE IF EXISTS ${TableProvider.userTable}");
     await database.execute("DROP TABLE IF EXISTS ${TableProvider.bankTable}");
-    await database.execute("DROP TABLE IF EXISTS ${TableProvider.noteTable}");
+    // await database.execute("DROP TABLE IF EXISTS ${TableProvider.noteTable}");
     await initDB(database, newVersion);
   }
 
   Future initDB(Database database, int version) async {
     await database.execute(TableProvider.createUserTable);
     await database.execute(TableProvider.createBankTable);
-    await database.execute(TableProvider.createNoteTable);
+    // await database.execute(TableProvider.createNoteTable);
   }
 }

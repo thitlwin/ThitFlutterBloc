@@ -12,10 +12,10 @@ class TableProvider {
       "name TEXT "
       ")";
 
-  static final noteTable = "note";
-  static final createNoteTable = "CREATE TABLE ${noteTable} ("
-      "id INTEGER PRIMARY KEY,"
-      "note TEXT,"
-      "read_flag INTEGER"
-      ")";
+  // static final noteTable = "note";
+  // static final createNoteTable = "CREATE TABLE ${noteTable} ("
+  //     "id INTEGER PRIMARY KEY,"
+  //     "note TEXT,"
+  //     "read_flag INTEGER"
+  //     ")";
 }

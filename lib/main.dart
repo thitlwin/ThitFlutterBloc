@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
-import 'package:thit_flutter_bloc/ui/note/note_create/index.dart';
-import 'package:thit_flutter_bloc/ui/note/note_list/index.dart';
+import 'package:thit_flutter_bloc/ui/speaker/speaker_create/index.dart';
+import 'package:thit_flutter_bloc/ui/speaker/speaker_list/index.dart';
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
 import 'package:thit_flutter_bloc/utils/light_theme.dart';
 
@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
-        NoteListPage.routeName: (context) => NoteListPage(),
-        NoteCreatePage.routeName: (context) => NoteCreatePage(),
+        SpeakerListPage.routeName: (context) => SpeakerListPage(),
+        SpeakerCreatePage.routeName: (context) => SpeakerCreatePage(),
       },
     );
   }
@@ -95,9 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, NoteListPage.routeName );
+                Navigator.pushNamed(context, SpeakerListPage.routeName );
               },
-              child: Text('Note'),
+              child: Text('Speaker'),
               color: Colors.amberAccent,
               )
           ],
