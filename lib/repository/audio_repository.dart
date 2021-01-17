@@ -10,7 +10,11 @@ class AudioRepository {
     return _audioProvider.addNewAudio(audio);
   }
 
-  Stream<List<Audio>> getAudioList() {
+  Stream<List<Audio>> getAudioListStream() {
     return _audioProvider.audios();
+  }
+
+  Future<List<Audio>> getAudioList() {
+    return _audioProvider.audioList();
   }
 }
