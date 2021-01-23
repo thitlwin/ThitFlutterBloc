@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
+<<<<<<< HEAD
 import 'package:thit_flutter_bloc/ui/genre/genre_create/genre_create_page.dart';
 import 'package:thit_flutter_bloc/ui/genre/genre_list/genre_page.dart';
+=======
+import 'package:thit_flutter_bloc/ui/speaker/speaker_create/index.dart';
+import 'package:thit_flutter_bloc/ui/speaker/speaker_list/index.dart';
+>>>>>>> nyein_master
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
 import 'package:thit_flutter_bloc/utils/light_theme.dart';
 
@@ -17,7 +22,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +36,8 @@ class MyApp extends StatelessWidget {
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
+        SpeakerListPage.routeName: (context) => SpeakerListPage(),
+        SpeakerCreatePage.routeName: (context) => SpeakerCreatePage(),
       },
     );
   }
@@ -93,6 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Open User (Sqlite sample)'),
               color: Colors.amber,
             ),
+<<<<<<< HEAD
+=======
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, SpeakerListPage.routeName );
+              },
+              child: Text('Speaker'),
+              color: Colors.amberAccent,
+              )
+>>>>>>> nyein_master
           ],
         ),
       ),

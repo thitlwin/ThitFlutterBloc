@@ -16,6 +16,10 @@ class _AudioCreatePageState extends State<AudioCreatePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Audio Create'),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => {Navigator.pop(context)},
+        ),
       ),
       body: AudioCreateScreen(audioCreateBloc: _audioCreateBloc),
     );

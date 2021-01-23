@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class AudioCreateEvent {
-  AudioRepository _audioRepository = new AudioRepository();
+  final AudioRepository _audioRepository = new AudioRepository();
   Stream<AudioCreateState> applyAsync(
       {AudioCreateState currentState, AudioCreateBloc bloc});
 }
@@ -47,11 +47,8 @@ class DoAudioCreateEvent extends AudioCreateEvent {
       {AudioCreateState currentState, AudioCreateBloc bloc}) async* {
     try {
       yield UnAudioCreateState();
-      var res = await _audioRepository.addAudio(this.audio);
-      if (res != null)
-        yield SuccessAudioCreateState("Success");
-      else
-        yield ErrorAudioCreateState('Fail to create.');
+      await _audioRepository.addAudio(this.audio);
+      yield SuccessAudioCreateState("Success");
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadAudioCreateEvent', error: _, stackTrace: stackTrace);
