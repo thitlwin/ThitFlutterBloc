@@ -20,4 +20,12 @@ class GenreRepository {
   Future loadGenre() async {
     return _genreProvider.loadGenre();
   }
+
+  Stream<List<Genre>> getGenreListStream() {
+    return _genreProvider.genres();
+  }
+
+  Future<List<Genre>> getGenreList() {
+    return _genreProvider.genreList();
+  }
 }

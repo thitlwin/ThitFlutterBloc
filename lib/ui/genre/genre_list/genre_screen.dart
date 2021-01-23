@@ -61,20 +61,35 @@ class GenreListScreenState extends State<GenreListScreen> {
               ],
             ));
           }
-           if (currentState is InGenreListState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(currentState.hello),
+          if (currentState is InGenreListState) {
+            if (currentState.genreList?.length > 0) {
+              return ListView(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  for (int index = 0;
+                      index < currentState.genreList.length;
+                      index++)
+                    ListTile(
+                      leading: ExcludeSemantics(
+                        child: CircleAvatar(child: Text('$index')),
+                      ),
+                      title: Text('${currentState.genreList[index].genreName}'),
+                    ),
                 ],
-              ),
-            );
+              );
+            } else {
+              return Center( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("No audio list found."),
+                  ],
+                ),
+              );
+            }
           }
           return Center(
-              child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
-          
         });
   }
 

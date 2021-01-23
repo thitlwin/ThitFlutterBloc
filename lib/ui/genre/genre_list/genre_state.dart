@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:thit_flutter_bloc/data/model/genre.dart';
 
 abstract class GenreListState extends Equatable {
-
   final List propss;
   GenreListState([this.propss]);
 
@@ -11,7 +11,6 @@ abstract class GenreListState extends Equatable {
 
 /// UnInitialized
 class UnGenreListState extends GenreListState {
-
   UnGenreListState();
 
   @override
@@ -20,20 +19,19 @@ class UnGenreListState extends GenreListState {
 
 /// Initialized
 class InGenreListState extends GenreListState {
-  final String hello;
+  final List<Genre> genreList;
 
-  InGenreListState(this.hello) : super([hello]);
+  InGenreListState(this.genreList) : super([genreList]);
 
   @override
-  String toString() => 'InGenreListState $hello';
-
+  String toString() => 'InGenreListState $genreList';
 }
 
 class ErrorGenreListState extends GenreListState {
   final String errorMessage;
 
-  ErrorGenreListState(this.errorMessage): super([errorMessage]);
-  
+  ErrorGenreListState(this.errorMessage) : super([errorMessage]);
+
   @override
   String toString() => 'ErrorGenreListState';
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
+import 'package:thit_flutter_bloc/ui/genre/genre_create/genre_create_page.dart';
+import 'package:thit_flutter_bloc/ui/genre/genre_list/genre_page.dart';
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
 import 'package:thit_flutter_bloc/utils/light_theme.dart';
 
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
       routes: {
         AudioListPage.routeName: (context) => AudioListPage(),
         AudioCreatePage.routeName: (context) => AudioCreatePage(),
+        GenreListPage.routeName: (context) => GenreListPage(),
+        GenreCreatePage.routeName: (context) => GenreCreatePage(),
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
@@ -77,18 +81,18 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             RaisedButton(
               onPressed: () {
+                Navigator.pushNamed(context, GenreListPage.routeName);
+              },
+              child: Text('Genre List'),
+              color: Colors.blueGrey,
+            ),
+            RaisedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, UserPage.routeName);
               },
               child: Text('Open User (Sqlite sample)'),
               color: Colors.amber,
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, BankPage.routeName);
-              },
-              child: Text('Open Bank (Api sample)'),
-              color: Colors.amber,
-            )
           ],
         ),
       ),

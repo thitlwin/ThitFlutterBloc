@@ -14,16 +14,28 @@ class GenreProvider {
 
   @override
   Future deleteGenre(Genre genre) {
-    // return genreCollection.document(genre.id).delete();
+    return genreCollection.doc().delete();
   }
 
   @override
   Future updateGenre(Genre genre) {
-    //  return genreCollection.document(genre.id).updateData(genre.toDocument());
+    return genreCollection.doc().update(genre.toDocument());
   }
 
   @override
   Future loadGenre() {
     // return genreCollection.document().loadData.toDocument();
+  }
+
+  Stream<List<Genre>> genres() {
+    return genreCollection.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Genre.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Future<List<Genre>> genreList() {
+    return genreCollection.get().then((value) {
+      return value.docs.map((doc) => Genre.fromSnapshot(doc)).toList();
+    });
   }
 }
