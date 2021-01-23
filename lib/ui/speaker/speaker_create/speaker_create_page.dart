@@ -15,7 +15,7 @@ class _SpeakerCreatePageState extends State<SpeakerCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SpeakerCreate'),
+        title: Text('Create Speaker'),
       ),
       body: SpeakerCreateScreen(speakerCreateBloc: _speakerCreateBloc),
     );

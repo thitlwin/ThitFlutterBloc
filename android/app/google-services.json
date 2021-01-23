@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "916328468192",
-    "project_id": "speakertest-fda88",
-    "storage_bucket": "speakertest-fda88.appspot.com"
+    "project_number": "95075844097",
+    "project_id": "dhammaproject-53658",
+    "storage_bucket": "dhammaproject-53658.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:916328468192:android:907c3d3033bbe038c74a85",
+        "mobilesdk_app_id": "1:95075844097:android:6fdd35f28d65c50a38c000",
         "android_client_info": {
-          "package_name": "com.example.thit_flutter_bloc_nyein_master"
+          "package_name": "com.example.thit_flutter_bloc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "916328468192-5tp9mm0i8rt2n5tatmivp5ssqel2ugek.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.thit_flutter_bloc_nyein_master",
-            "certificate_hash": "d0ad43355048bce92a50622855402b2e91976cb3"
-          }
-        },
-        {
-          "client_id": "916328468192-ke9h6ik1skbv424remgl0825ej37k6h8.apps.googleusercontent.com",
+          "client_id": "95075844097-9gtle0juvpoq6o1jd9lffbp99eogba90.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC9id4KWjDfKqXWuzL_hYhj48M8tTw8Or0"
+          "current_key": "AIzaSyDONvqwiBAWFXCrd5cWAWU7vMEV2UYsZM0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "916328468192-ke9h6ik1skbv424remgl0825ej37k6h8.apps.googleusercontent.com",
+              "client_id": "95075844097-9gtle0juvpoq6o1jd9lffbp99eogba90.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

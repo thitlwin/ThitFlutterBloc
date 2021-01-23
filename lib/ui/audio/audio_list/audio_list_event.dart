@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:thit_flutter_bloc/data/model/audio.dart';
 import 'package:thit_flutter_bloc/repository/audio_repository.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:meta/meta.dart';
@@ -21,6 +22,21 @@ class UnAudioListEvent extends AudioListEvent {
   }
 }
 
+class InAudioListEvent extends AudioListEvent {
+  final List<Audio> audioList;
+
+  InAudioListEvent(this.audioList);
+  @override
+  Stream<AudioListState> applyAsync(
+      {AudioListState currentState, AudioListBloc bloc}) async* {
+    if (audioList != null) {
+      yield InAudioListState(audioList);
+    } else {
+      yield ErrorAudioListState("Fail to download audio list.");
+    }
+  }
+}
+
 class LoadAudioListEvent extends AudioListEvent {
   @override
   Stream<AudioListState> applyAsync(
@@ -28,9 +44,16 @@ class LoadAudioListEvent extends AudioListEvent {
     try {
       yield UnAudioListState();
       _todosSubscription?.cancel();
-      _todosSubscription = _audioRepository
-          .getAudioList()
-          .listen((audios) => InAudioListState(audios));
+      _audioRepository.getAudioListStream().listen((audioList) {
+        bloc.add(InAudioListEvent(audioList));
+      });
+      // call without using stream
+      // var res = await _audioRepository.getAudioList();
+      // if (res != null) {
+      //   print(res.length);
+      //   yield InAudioListState(res);
+      // } else
+      //   yield ErrorAudioListState("Fail to download audio list.");
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadAudioListEvent', error: _, stackTrace: stackTrace);

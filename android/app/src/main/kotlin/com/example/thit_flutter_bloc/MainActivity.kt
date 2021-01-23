@@ -1,4 +1,4 @@
-package com.example.thit_flutter_bloc_nyein_master
+package com.example.thit_flutter_bloc
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -6,7 +6,7 @@ part "speaker.g.dart";
 
 @JsonSerializable()
 class Speaker extends Equatable {
-  final int id;
+  final String id;
   final String speaker;
 
   Speaker({this.id, this.speaker});
@@ -25,7 +25,8 @@ class Speaker extends Equatable {
 
   static Speaker fromSnapshot(DocumentSnapshot snap) {
     return Speaker(
-        speaker: snap.data()['speaker']);
+      id: snap.id,
+      speaker: snap.data()['speaker']);
   }
 
   Map<String, Object> toDocument() {
