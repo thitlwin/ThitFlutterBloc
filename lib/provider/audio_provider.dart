@@ -12,17 +12,24 @@ class AudioProvider {
 
   Future<void> addNewAudio(Audio audio) {
     try {
-      return audioCollection.add(audio.toDocument()).then((docRef) {
-        putFileToCloudStorage(docRef.id, audio.fileMetaData);
+      return audioCollection.add(audio.toDocument()).then((docRef) async {
+        var fileDownloadUrl =
+            await putFileToCloudStorage(docRef.id, audio.fileMetaData);
+        if (fileDownloadUrl != null) {
+          audio.fileMetaData.fileUrl = fileDownloadUrl;
+          docRef.update(audio.toDocument());
+        }
       }).catchError((Object obj) => throw obj);
     } catch (e) {
       throw e;
     }
   }
 
-  Future<void> putFileToCloudStorage(
+  Future<String> putFileToCloudStorage(
       String firestoreObjectId, FileMetaData fileMetaData) async {
+    String fileUrl;
     File file = new File(fileMetaData.fileAbsolutePath);
+
     // Create your custom metadata.
     SettableMetadata metadata = SettableMetadata(
       cacheControl: 'max-age=60',
@@ -31,39 +38,42 @@ class AudioProvider {
       },
     );
 
-    UploadTask task = FirebaseStorage.instance
-        .ref('audio/${fileMetaData.fileName}')
-        .putFile(file, metadata);
+    String filePath = 'audio/${fileMetaData.fileName}';
+    UploadTask task =
+        FirebaseStorage.instance.ref(filePath).putFile(file, metadata);
 
-    task.snapshotEvents.listen((TaskSnapshot snapshot) {
-      print('Task state: ${snapshot.state}');
-      print(
-          'Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
-    }, onError: (e) {
-      // The final snapshot is also available on the task via `.snapshot`,
-      // this can include 2 additional states, `TaskState.error` & `TaskState.canceled`
-      print(task.snapshot);
+    task.snapshotEvents.listen(
+      (TaskSnapshot snapshot) async {
+        print(
+            'Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
+        if (snapshot.state == TaskState.success) {
+          print('----successfully uploaded-----');
+        }
+      },
+      onError: (e) {
+        if (e.code == 'permission-denied') {
+          print('User does not have permission to upload to this reference.');
+        }
+        throw e;
+      },
+    );
 
-      if (e.code == 'permission-denied') {
-        print('User does not have permission to upload to this reference.');
-      }
-      throw e;
-    });
-
+    // We can still optionally use the Future alongside the stream.
     try {
-      // Storage tasks function as a Delegating Future so we can await them.
-      TaskSnapshot snapshot = await task;
-      print('Uploaded ${snapshot.bytesTransferred} bytes.');
-    } on FirebaseException catch (e) {
-      // The final snapshot is also available on the task via `.snapshot`,
-      // this can include 2 additional states, `TaskState.error` & `TaskState.canceled`
-      print(task.snapshot);
+      await task;
+      if (task.snapshot.state == TaskState.success) {
+        fileUrl = await getAudioDownloadUrl(filePath);
+        print('---fileUrl--$fileUrl');
+        return fileUrl;
+      }
 
+      print('Upload complete.');
+    } on FirebaseException catch (e) {
       if (e.code == 'permission-denied') {
         print('User does not have permission to upload to this reference.');
       }
-      throw e;
     }
+    return fileUrl;
   }
 
   // @override
@@ -81,6 +91,10 @@ class AudioProvider {
     return audioCollection.get().then((value) {
       return value.docs.map((doc) => Audio.fromSnapshot(doc)).toList();
     });
+  }
+
+  Future<String> getAudioDownloadUrl(String filePath) async {
+    return await FirebaseStorage.instance.ref(filePath).getDownloadURL();
   }
 
   // @override

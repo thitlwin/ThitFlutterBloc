@@ -4,11 +4,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'file_meta_data.g.dart';
 
 @JsonSerializable()
+// ignore: must_be_immutable
 class FileMetaData extends Equatable {
   // @JsonKey(ignore: true)
   final String fileAbsolutePath;
   final String fileName;
-  final String fileUrl;
+  String fileUrl;
   final int fileSize;
 
   FileMetaData(
