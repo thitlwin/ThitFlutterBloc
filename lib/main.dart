@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_list/index.dart';
 import 'package:thit_flutter_bloc/ui/bank/index.dart';
+import 'package:thit_flutter_bloc/ui/speaker/speaker_create/index.dart';
+import 'package:thit_flutter_bloc/ui/speaker/speaker_list/index.dart';
 import 'package:thit_flutter_bloc/ui/user/user_create/index.dart';
 import 'package:thit_flutter_bloc/utils/light_theme.dart';
 
@@ -15,7 +17,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
         UserPage.routeName: (context) => UserPage(),
         UserCreatePage.routeName: (context) => UserCreatePage(),
         BankPage.routeName: (context) => BankPage(),
+        SpeakerListPage.routeName: (context) => SpeakerListPage(),
+        SpeakerCreatePage.routeName: (context) => SpeakerCreatePage(),
       },
     );
   }
@@ -88,7 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Open Bank (Api sample)'),
               color: Colors.amber,
-            )
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, SpeakerListPage.routeName );
+              },
+              child: Text('Speaker'),
+              color: Colors.amberAccent,
+              )
           ],
         ),
       ),
