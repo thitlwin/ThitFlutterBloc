@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thit_flutter_bloc/data/model/audio.dart';
 import 'package:thit_flutter_bloc/data/model/file_meta_data.dart';
+import 'package:thit_flutter_bloc/data/model/speaker.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 
 class AudioCreateScreen extends StatefulWidget {
@@ -34,6 +36,9 @@ class AudioCreateScreenState extends State<AudioCreateScreen> {
   var displayAudioFileValidationError = false;
   var audioFileValidationMessage = "* Please select an audio file.";
   File audioFile;
+  Speaker _selectedSpeaker;
+  List<Speaker> _speakerList;
+
   @override
   void initState() {
     super.initState();
@@ -81,6 +86,10 @@ class AudioCreateScreenState extends State<AudioCreateScreen> {
             );
           } else if (currentState is InAudioCreateState) {
             Navigator.pop(context); // hide the CircularProgressIndicator
+            setState(() {
+              _speakerList = currentState.speakerList;
+              _selectedSpeaker = _speakerList[0];
+            });
           }
         },
         child: _formContent());
@@ -103,28 +112,67 @@ class AudioCreateScreenState extends State<AudioCreateScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Title",
+                      decoration: InputDecoration(
+                        labelText: "Title",
+                        border: themeData.inputDecorationTheme.border,
+                        enabledBorder: themeData.inputDecorationTheme.border,
+                        focusedBorder:
+                            themeData.inputDecorationTheme.focusedBorder,
+                        prefixIcon: Icon(Icons.title),
+                      ),
+                      controller: titleController,
+                      validator: (value) {
+                        if (value.isNotEmpty) {
+                          return null;
+                        }
+                        return "Title is required";
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: DropdownSearch<Speaker>(
+                        selectedItem: _selectedSpeaker,
+                        validator: (value) {
+                          if (value == null) {
+                            return "Speaker is required";
+                          }
+                          return null;
+                        },
+                        dropdownSearchDecoration: InputDecoration(
+                          // labelText: '${ResString.bankAccount}',
+
                           border: themeData.inputDecorationTheme.border,
                           enabledBorder: themeData.inputDecorationTheme.border,
                           focusedBorder:
                               themeData.inputDecorationTheme.focusedBorder,
-                          prefixIcon: Icon(Icons.title),
-                        ),
-                        controller: titleController),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Speaker",
-                            border: themeData.inputDecorationTheme.border,
-                            enabledBorder:
-                                themeData.inputDecorationTheme.border,
-                            focusedBorder:
-                                themeData.inputDecorationTheme.focusedBorder,
-                            prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 24,
                           ),
-                          controller: speakerController),
+                        ),
+                        label: 'Speaker',
+                        mode: Mode.MENU,
+                        items: _speakerList,
+                        hint: 'Select',
+                        itemAsString: (Speaker u) => u.speaker,
+                        onChanged: (Speaker data) {
+                          _selectedSpeaker = data;
+                        },
+                        onSaved: (Speaker data) {
+                          _selectedSpeaker = data;
+                        },
+                      ),
+                      // child: TextFormField(
+                      //     decoration: InputDecoration(
+                      //       labelText: "Speaker",
+                      //       border: themeData.inputDecorationTheme.border,
+                      //       enabledBorder:
+                      //           themeData.inputDecorationTheme.border,
+                      //       focusedBorder:
+                      //           themeData.inputDecorationTheme.focusedBorder,
+                      //       prefixIcon: Icon(Icons.person),
+                      //     ),
+                      //     controller: speakerController),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),

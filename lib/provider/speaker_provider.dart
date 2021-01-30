@@ -14,4 +14,10 @@ class SpeakerProvider {
       return snapshot.docs.map((doc) => Speaker.fromSnapshot(doc)).toList();
     });
   }
+
+  Future<List<Speaker>> speakerList() {
+    return speakerCollection.get().then((value) {
+      return value.docs.map((doc) => Speaker.fromSnapshot(doc)).toList();
+    });
+  }
 }

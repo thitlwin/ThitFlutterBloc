@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:thit_flutter_bloc/data/model/speaker.dart';
 
 abstract class AudioCreateState extends Equatable {
   final List propss;
@@ -18,12 +19,12 @@ class UnAudioCreateState extends AudioCreateState {
 
 /// Initialized
 class InAudioCreateState extends AudioCreateState {
-  final String hello;
+  final List<Speaker> speakerList;
 
-  InAudioCreateState(this.hello) : super([hello]);
+  InAudioCreateState(this.speakerList) : super([speakerList]);
 
   @override
-  String toString() => 'InAudioCreateState $hello';
+  String toString() => 'InAudioCreateState $speakerList';
 }
 
 class ErrorAudioCreateState extends AudioCreateState {

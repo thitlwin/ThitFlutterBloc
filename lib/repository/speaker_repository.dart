@@ -14,4 +14,8 @@ class SpeakerRepository {
   Stream<List<Speaker>> getSpeakerList() {
     return _speakerProvider.speakers();
   }
+
+  Future<List<Speaker>> getSpeaker_FutureList() {
+    return _speakerProvider.speakerList();
+  }
 }

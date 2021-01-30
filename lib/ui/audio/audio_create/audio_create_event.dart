@@ -3,12 +3,14 @@ import 'dart:developer' as developer;
 
 import 'package:thit_flutter_bloc/data/model/audio.dart';
 import 'package:thit_flutter_bloc/repository/audio_repository.dart';
+import 'package:thit_flutter_bloc/repository/speaker_repository.dart';
 import 'package:thit_flutter_bloc/ui/audio/audio_create/index.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 abstract class AudioCreateEvent {
   final AudioRepository _audioRepository = new AudioRepository();
+  final SpeakerRepository _speakerRepository = new SpeakerRepository();
   Stream<AudioCreateState> applyAsync(
       {AudioCreateState currentState, AudioCreateBloc bloc});
 }
@@ -27,8 +29,8 @@ class LoadAudioCreateEvent extends AudioCreateEvent {
       {AudioCreateState currentState, AudioCreateBloc bloc}) async* {
     try {
       yield UnAudioCreateState();
-      await Future.delayed(Duration(seconds: 1));
-      yield InAudioCreateState('Hello world');
+      var speakerList = await _speakerRepository.getSpeaker_FutureList();
+      yield InAudioCreateState(speakerList);
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadAudioCreateEvent', error: _, stackTrace: stackTrace);
