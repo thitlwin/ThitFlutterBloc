@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,37 +129,27 @@ class AudioCreateScreenState extends State<AudioCreateScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: DropdownSearch<Speaker>(
-                        selectedItem: _selectedSpeaker,
-                        validator: (value) {
-                          if (value == null) {
-                            return "Speaker is required";
-                          }
-                          return null;
-                        },
-                        dropdownSearchDecoration: InputDecoration(
-                          // labelText: '${ResString.bankAccount}',
-
-                          border: themeData.inputDecorationTheme.border,
-                          enabledBorder: themeData.inputDecorationTheme.border,
-                          focusedBorder:
-                              themeData.inputDecorationTheme.focusedBorder,
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 24,
+                      child: Row(
+                        children: [
+                          Icon(Icons.person, color: themeData.accentColor),
+                          DropdownButton<Speaker>(
+                            isExpanded: true,
+                            underline: Container(height: 1),
+                            icon: Icon(Icons.arrow_drop_down),
+                            value: _selectedSpeaker,
+                            items: _speakerList
+                                ?.map((s) => DropdownMenuItem<Speaker>(
+                                      child: Text(s.speaker),
+                                      value: s,
+                                    ))
+                                ?.toList(),
+                            onChanged: (Speaker data) {
+                              setState(() {
+                                _selectedSpeaker = data;
+                              });
+                            },
                           ),
-                        ),
-                        label: 'Speaker',
-                        mode: Mode.MENU,
-                        items: _speakerList,
-                        hint: 'Select',
-                        itemAsString: (Speaker u) => u.speaker,
-                        onChanged: (Speaker data) {
-                          _selectedSpeaker = data;
-                        },
-                        onSaved: (Speaker data) {
-                          _selectedSpeaker = data;
-                        },
+                        ],
                       ),
                       // child: TextFormField(
                       //     decoration: InputDecoration(
