@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:thit_flutter_bloc/data/model/genre.dart';
 import 'package:thit_flutter_bloc/data/model/speaker.dart';
 
 abstract class AudioCreateState extends Equatable {
@@ -20,11 +21,14 @@ class UnAudioCreateState extends AudioCreateState {
 /// Initialized
 class InAudioCreateState extends AudioCreateState {
   final List<Speaker> speakerList;
+  final List<Genre> genreList;
 
-  InAudioCreateState(this.speakerList) : super([speakerList]);
+  InAudioCreateState({this.speakerList, this.genreList})
+      : super([speakerList, genreList]);
 
   @override
-  String toString() => 'InAudioCreateState $speakerList';
+  String toString() =>
+      'InAudioCreateState speakerList=${speakerList.length}, genreList=${genreList.length}';
 }
 
 class ErrorAudioCreateState extends AudioCreateState {

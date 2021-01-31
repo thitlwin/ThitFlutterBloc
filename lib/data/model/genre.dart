@@ -5,7 +5,7 @@ part 'genre.g.dart';
 
 @JsonSerializable()
 class Genre extends Equatable {
-  final int id;
+  final String id;
   final String genreName;
 
   Genre({this.id, this.genreName});
@@ -31,6 +31,7 @@ class Genre extends Equatable {
   static Genre fromSnapshot(DocumentSnapshot snap) {
     return Genre(
       genreName: snap.data()['genreName'],
+      id: snap.id,
     );
   }
 

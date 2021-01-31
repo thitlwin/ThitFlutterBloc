@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter CURD Demo',
+      title: 'Ruby Yawki (Admin)',
       theme: myTheme,
       home: MyHomePage(title: 'Home Page'),
       routes: {
