@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,63 +129,67 @@ class AudioCreateScreenState extends State<AudioCreateScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: DropdownSearch<Speaker>(
-                        selectedItem: _selectedSpeaker,
+                      child: DropdownButtonFormField(
+                        isExpanded: true,
+                        value: _selectedSpeaker,
                         validator: (value) {
-                          if (value == null) {
-                            return "Speaker is required";
+                          if (value.isNotEmpty) {
+                            return null;
                           }
-                          return null;
+                          return "Speaker is required";
                         },
-                        dropdownSearchDecoration: InputDecoration(
-                          // labelText: '${ResString.bankAccount}',
-
+                        onChanged: (Speaker data) {
+                          setState(() {
+                            _selectedSpeaker = data;
+                          });
+                        },
+                        items: _speakerList
+                            ?.map((s) => DropdownMenuItem<Speaker>(
+                                  child: Text(s.speaker),
+                                  value: s,
+                                ))
+                            ?.toList(),
+                        decoration: InputDecoration(
+                          labelText: "Speaker",
                           border: themeData.inputDecorationTheme.border,
                           enabledBorder: themeData.inputDecorationTheme.border,
                           focusedBorder:
                               themeData.inputDecorationTheme.focusedBorder,
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 24,
-                          ),
+                          prefixIcon: Icon(Icons.person),
                         ),
-                        label: 'Speaker',
-                        mode: Mode.MENU,
-                        items: _speakerList,
-                        hint: 'Select',
-                        itemAsString: (Speaker u) => u.speaker,
-                        onChanged: (Speaker data) {
-                          _selectedSpeaker = data;
-                        },
-                        onSaved: (Speaker data) {
-                          _selectedSpeaker = data;
-                        },
                       ),
-                      // child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //       labelText: "Speaker",
-                      //       border: themeData.inputDecorationTheme.border,
-                      //       enabledBorder:
-                      //           themeData.inputDecorationTheme.border,
-                      //       focusedBorder:
-                      //           themeData.inputDecorationTheme.focusedBorder,
-                      //       prefixIcon: Icon(Icons.person),
-                      //     ),
-                      //     controller: speakerController),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: "Genre",
-                            border: themeData.inputDecorationTheme.border,
-                            enabledBorder:
-                                themeData.inputDecorationTheme.border,
-                            focusedBorder:
-                                themeData.inputDecorationTheme.focusedBorder,
-                            prefixIcon: Icon(Icons.category),
-                          ),
-                          controller: genreController),
+                      child: DropdownButtonFormField(
+                        isExpanded: true,
+                        value: _selectedSpeaker,
+                        validator: (value) {
+                          if (value.isNotEmpty) {
+                            return null;
+                          }
+                          return "Genre is required";
+                        },
+                        onChanged: (Speaker data) {
+                          setState(() {
+                            _selectedSpeaker = data;
+                          });
+                        },
+                        items: _speakerList
+                            ?.map((s) => DropdownMenuItem<Speaker>(
+                                  child: Text(s.speaker),
+                                  value: s,
+                                ))
+                            ?.toList(),
+                        decoration: InputDecoration(
+                          labelText: "Genre",
+                          border: themeData.inputDecorationTheme.border,
+                          enabledBorder: themeData.inputDecorationTheme.border,
+                          focusedBorder:
+                              themeData.inputDecorationTheme.focusedBorder,
+                          prefixIcon: Icon(Icons.category),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0, left: 16.0),
